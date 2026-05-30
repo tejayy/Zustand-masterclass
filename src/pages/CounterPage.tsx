@@ -1,6 +1,12 @@
 import { useCounterStore } from "../stores/counterStore";
 
-const Home = () => {
+const CounterPage = () => {
+  //   const { count, increment, decrement, reset } = useCounterStore((state) => ({
+  //     count: state.count,
+  //     increment: state.increment,
+  //     decrement: state.decrement,
+  //     reset: state.reset,
+  //   }));
   const count = useCounterStore((state) => state.count);
   const increment = useCounterStore((state) => state.increment);
   const decrement = useCounterStore((state) => state.decrement);
@@ -29,4 +35,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default CounterPage;
