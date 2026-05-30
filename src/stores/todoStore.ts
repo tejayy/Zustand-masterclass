@@ -4,6 +4,7 @@ import type { Todo } from "../types/todo";
 interface TodoStore {
   todos: Todo[];
   addTodo: (title: string) => void;
+  updateTodo: (id: string, title: string) => void;
   deleteTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
 }
@@ -22,6 +23,14 @@ export const useTodoStore = create<TodoStore>((set) => ({
         },
       ],
     })),
+
+  updateTodo: (id, title) => {
+    set((state) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === id ? { ...todo, title } : todo,
+      ),
+    }));
+  },
 
   deleteTodo: (id) => {
     set((state) => ({

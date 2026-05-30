@@ -7,6 +7,7 @@ const TodoPage = () => {
   const [title, setTitle] = useState("");
   const todos = useTodoStore((state) => state.todos);
   const addTodo = useTodoStore((state) => state.addTodo);
+  const updateTodo = useTodoStore((state) => state.updateTodo);
   const deleteTodo = useTodoStore((state) => state.deleteTodo);
   const toggleTodo = useTodoStore((state) => state.toggleTodo);
 
@@ -17,6 +18,13 @@ const TodoPage = () => {
     addTodo(title);
     setTitle("");
     toast.success(`${todoTitle} Added`);
+  };
+
+  const handleUpdate = (todoId) => {
+    const newTitle = prompt("enter new title");
+    if (!newTitle?.trim()) return;
+    updateTodo(todoId, newTitle);
+    toast.success(`Updated to "${newTitle}"`);
   };
 
   const handleDelete = (todo: Todo) => {
@@ -49,6 +57,7 @@ const TodoPage = () => {
               {""}
               {todo.title}
             </span>
+            <button onClick={() => handleUpdate(todo.id)}>✏️</button>
             <button onClick={() => handleDelete(todo)}>❌</button>
           </div>
         ))}
