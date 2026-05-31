@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { loginUser } from "../services/authService";
 import { useAuthStore } from "../stores/authStore";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ const LoginPage = () => {
 
   const login = useAuthStore((state) => state.login);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
     try {
@@ -20,11 +21,10 @@ const LoginPage = () => {
         email,
         password,
       });
-
       login(data.user, data.token);
       toast.success(`Welcome ${data.user.name}`);
     } catch (error) {
-      toast.error("Login failed");
+      toast.error("Invalid Creds");
       console.log(error);
     } finally {
       setLoading(false);
@@ -113,9 +113,12 @@ const LoginPage = () => {
 
               <p className="text-center text-sm text-slate-400">
                 Don't have an account?{" "}
-                <span className="cursor-pointer font-medium text-cyan-400 hover:text-cyan-300">
+                <Link
+                  to="/signup"
+                  className="cursor-pointer font-medium text-cyan-400 hover:text-cyan-300"
+                >
                   Sign Up
-                </span>
+                </Link>
               </p>
             </form>
           </div>

@@ -7,6 +7,7 @@ interface AuthStore {
   token: string | null;
   isAuthenticated: boolean;
   login: (user: User, token: string) => void;
+  // signup: (user: User) => void;
   logout: () => void;
 }
 
@@ -24,6 +25,12 @@ export const useAuthStore = create<AuthStore>()(
           token,
           isAuthenticated: true,
         }),
+
+      // signup: (user) =>
+      //   set({
+      //     user,
+      //     isAuthenticated: false,
+      //   }),
 
       logout: () =>
         set({

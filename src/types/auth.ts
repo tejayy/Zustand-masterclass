@@ -2,7 +2,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  //   password: string;
+  // password: string;
 }
 
 export interface LoginData {
@@ -17,4 +17,14 @@ export interface LoginResponse {
     email: string;
   };
   token: string;
+}
+
+export interface RegisterData {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  message: string;
 }
