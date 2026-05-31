@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import { useAuthStore } from "./stores/authStore";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -18,6 +19,15 @@ const App = () => {
             path="/"
             element={isAuthenticated ? <DashboardPage /> : <LoginPage />}
           />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/counter" element={<CounterPage />} />
           <Route path="/todo" element={<TodoPage />} />
         </Routes>

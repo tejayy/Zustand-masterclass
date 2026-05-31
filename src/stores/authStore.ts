@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { User } from "../types/auth";
+import { persist } from "zustand/middleware";
 
 interface AuthStore {
   user: User | null;
@@ -9,19 +10,30 @@ interface AuthStore {
   logout: () => void;
 }
 
-export const useAuthStore = create<AuthStore>((set) => ({
-  user: null,
-
-  token: null,
-
-  isAuthenticated: false,
-
-  login: (user, token) => set({ user, token, isAuthenticated: true }),
-
-  logout: () =>
-    set({
+export const useAuthStore = create<AuthStore>()(
+  persist(
+    (set) => ({
       user: null,
       token: null,
+
       isAuthenticated: false,
+
+      login: (user, token) =>
+        set({
+          user,
+          token,
+          isAuthenticated: true,
+        }),
+
+      logout: () =>
+        set({
+          user: null,
+          token: null,
+          isAuthenticated: false,
+        }),
     }),
-}));
+    {
+      name: "auth-storage",
+    },
+  ),
+);
